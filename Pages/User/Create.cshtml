@@ -1,0 +1,45 @@
+﻿@page
+@model ASPNET_PRACTICE.Pages.User.CreateModel
+@{
+}
+
+<h2>Add New User</h2>
+
+@if (Model.errorMessage.Length > 0) //pag error
+{
+		<div class="alert alert-warning alert-dismissable fade show" role="alert">
+			<strong>@Model.errorMessage</strong>
+			<button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+		</div>
+}
+
+@if (Model.successMessage.Length > 0) //pag success 
+{
+			<div class="alert alert-success alert-dismissable fade show" role="alert">
+				<strong>@Model.successMessage</strong>
+				<button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+			</div>
+}
+
+<form method="POST">
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">First Name</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" name="FirstName" value="@Model.user.FirstName" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">Last Name</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" name="LastName" value="@Model.user.LastName" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		
+		<div class="offset-sm-3 col-sm-3 g-grid">
+			<button type="submit" class="btn btn-primary">Create</button>&nbsp;
+			<button type="button" class="btn btn-danger" onclick="window.location.href='/User/Index';">Cancel</button> @* gi ani ra nko i redirect ra sa index pina JavaScript daw ni*@
+
+		</div>
+	</div>
+</form>

@@ -30,5 +30,20 @@ namespace ASPNET_PRACTICE.Model
             return users;
         }
 
+
+        public int AddUser(Users user, IConfiguration _configuration) //method to add user sa database
+        {
+            int result = 0;
+            using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DBCS").ToString()))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO [User](FirstName,LastName) VALUES(@FirstName,@LastName)", con); //ayawg kalimot sa bracket kay reserved word daw ang User
+                cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", user.LastName); //wala nko gi manual butang sa sql command since pangit mag '" + user.FirstName + "' kay prone sa sql injection ana ang copilot
+                con.Open();
+                result = cmd.ExecuteNonQuery();
+            }
+            return result;
+        }
+
     }
 }
