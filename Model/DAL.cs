@@ -45,5 +45,36 @@ namespace ASPNET_PRACTICE.Model
             return result;
         }
 
+        public Users GetUser(string id, IConfiguration _configuration)
+        {
+            Users user = new Users();
+            using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DBCS").ToString()))
+            {
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [User] WHERE ID = '" + id + "'", con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    user.ID = Convert.ToString(dt.Rows[0]["ID"]);
+                    user.FirstName = Convert.ToString(dt.Rows[0]["FirstName"]);
+                    user.LastName = Convert.ToString(dt.Rows[0]["LastName"]);
+                }
+            }
+            return user;
+        }
+
+        public int UpdateUser(Users user, IConfiguration _configuration)
+        {
+            int i = 0;
+            using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DBCS").ToString()))
+            {
+                SqlCommand cmd = new SqlCommand("Update [User] SET FirstName = '" + user.FirstName + "', LastName = '" + user.LastName + "' WHERE ID = '" + user.ID + "'", con);
+                con.Open();
+                i = cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return i;
+        }
+
     }
 }

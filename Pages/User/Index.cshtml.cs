@@ -7,16 +7,16 @@ namespace ASPNET_PRACTICE.Pages.User
     public class IndexModel : PageModel
     {
 
-        private readonly IConfiguration configuration;
-        public List<Users> ListUsers = new List<Users>();
-        public IndexModel(IConfiguration configuration) //ctor shrtcut for constructor
+        private readonly IConfiguration _configuration;
+        public IndexModel(IConfiguration _configuration)
         {
-            this.configuration = configuration;
-        }    
+            this._configuration = _configuration;
+        }
+        public List<Users> listUsers = new List<Users>();
         public void OnGet()
         {
             DAL dal = new DAL();
-            ListUsers = dal.GetUsers(configuration);
+            listUsers = dal.GetUsers(_configuration);
         }
     }
 }

@@ -4,31 +4,41 @@
 }
 
 <a href="/User/Create" class="btn btn-primary">Create</a>
-<br />
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<td>ID</td>
-			<td>First Name</td>
-			<td>Last Name</td>
-			<td>Edit</td>
-			<td>Delete</td>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model.ListUsers)
-		{
-				<tr>
-					<td>@item.ID</td>
-					<td>@item.FirstName</td>
-					<td>@item.LastName</td>
-					<td>
-					<a href="/User/Edit?id=@item.ID" class="btn btn-primary">Edit</a>	
-					</td>
-					<td>
-						<a href="/User/Delete?id=@item.ID" class="btn btn-danger">Delete</a>
-					</td>
-				
-				</tr>
-		}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model.listUsers)
+            {
+                                            <tr>
+                                                <td>@item.ID</td>
+                                                <td>@item.FirstName</td>
+                                                <td>@item.LastName</td>
+                                                <td>
+                                                <a class="btn btn-primary btn-sm" href="/User/Edit?id=@item.ID">Edit</a>&nbsp;
+                                                <a class="btn btn-danger btn-sm" onclick="onDelete(@item.ID)">Delete</a>&nbsp;
+
+                                                </td>
+                                            </tr>
+            }
+
+        }
+    </tbody>
 </table>
+
+<script>
+    function onDelete(id){
+        if(window.confirm("Are you sure to delete this item?"))
+        {
+            window.location.href = "/User/Delete?id=" + id;
+        }
+    }
+</script>
